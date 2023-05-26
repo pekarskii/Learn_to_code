@@ -58,7 +58,7 @@ def get_parsed_card(url, debug=0, headers=DEFAULT_HEADER):
         card_gallery = card.find("div", class_="gallery__stage-shaft")
         card_dict["gallery"] = []
         # if debug:
-        #     print("Галлерея")
+        #     print("Галерея")
         try:
             for div_img in card_gallery.find_all("div", class_="gallery__frame"):
                 img = div_img.find("img")
