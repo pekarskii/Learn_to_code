@@ -9,22 +9,24 @@ headers = {
 }
 
 
-with open("all_categories_dict.json") as file:
+with open("data/all_categories_dict.json") as file:
     all_categories = json.load(file)
 
 # print(all_categories)
 count = 0
 for categroy_name, category_href in all_categories.items():
-    if count == 0:
+    if count <30:
         req = requests.get(url = category_href, headers = headers)
         src = req.text
+        # print(src)
         soup = BeautifulSoup(src, "lxml")
-        popular_makes = soup.find_all(_class='child-group')
-        all_categories_popular_dict = {}
-        for item in popular_makes:
-            # print(item['value'])
-            item_text = item.text
-            print(item_text)
+        popular_makes = soup.find('div', class_='child-group').find('div', class_='grey-category')
+        print(popular_makes)
+        # all_categories_popular_dict = {}
+        # for item in popular_makes:
+        #     # print(item['value'])
+        #     item_text = item.text
+        #     print(item_text)
 
             # item_href = "https://www.cars.com/shopping/advanced-search/?list_price_max=&list_price_min=&makes[]=" + \
             #             item['value'] + "&maximum_distance=all&mileage_max=&stock_type=all&year_max=&year_min=&zip="

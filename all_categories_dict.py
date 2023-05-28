@@ -31,5 +31,5 @@ for item in other_makes:
 
 merge = all_categories_popular_dict | all_categories_other_dict
 
-with open("all_categories_dict.json", "w") as file:
+with open("data/all_categories_dict.json", "w") as file:
     json.dump(merge, file, indent=4, ensure_ascii=False)
