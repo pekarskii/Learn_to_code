@@ -25,6 +25,6 @@ for brand, category_href in all_categories.items():
     print(f'сформировали список с моделью {brand}')
     data.append({brand: models})
 
-print(f'записываем в файл.')
+print(f'записываем в файл. Hello, World')
 with open("data/models.json", "w") as file:
     json.dump(data, file, indent=4, ensure_ascii=False)
