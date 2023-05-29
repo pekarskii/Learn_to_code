@@ -24,7 +24,6 @@ for item in popular_makes:
 other_makes = soup.find(label = 'Other makes').find_all('option')
 all_categories_other_dict = {}
 for item in other_makes:
-    # print(item['value'])
     item_text = item.text
     item_href = "https://www.cars.com/shopping/advanced-search/?list_price_max=&list_price_min=&makes[]=" + item['value'] + "&maximum_distance=all&mileage_max=&stock_type=all&year_max=&year_min=&zip="
     all_categories_other_dict[item_text] = item_href
