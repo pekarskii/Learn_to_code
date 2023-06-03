@@ -1,0 +1,5 @@
+{
+    "Acura": "https://www.cars.com/shopping/advanced-search/?list_price_max=&list_price_min=&makes[]=acura&maximum_distance=all&mileage_max=&stock_type=all&year_max=&year_min=&zip=",
+    "Audi": "https://www.cars.com/shopping/advanced-search/?list_price_max=&list_price_min=&makes[]=audi&maximum_distance=all&mileage_max=&stock_type=all&year_max=&year_min=&zip=",
+    "BMW": "https://www.cars.com/shopping/advanced-search/?list_price_max=&list_price_min=&makes[]=bmw&maximum_distance=all&mileage_max=&stock_type=all&year_max=&year_min=&zip="
+}

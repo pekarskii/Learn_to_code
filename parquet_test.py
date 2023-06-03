@@ -2,7 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import time
-import jsonlines
+import pyarrow as pa
+import pyarrow.parquet as pq
 
 url = "https://www.cars.com/shopping/advanced-search/"
 headers = {
@@ -28,7 +29,14 @@ for brand, category_href in all_categories.items():
     count+=1
     print(f'"brand:"{brand}","model":"{models}"')
 
+
+
 print(f'Записываем данные в файл.')
-with jsonlines.open('data/all_brands_models_dict.jsonl', mode='w') as writer:
-    for obj in data:
-        writer.write(obj)
+table = pa.Table.from_pydict({key: [dic[key] for dic in data] for key in data[0]})
+pq.write_table(table, 'data/data.parquet')
+
+
+
+# with jsonlines.open('data/all_brands_models_dict.jsonl', mode='w') as writer:
+#     for obj in data:
+#         writer.write(obj)
