@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import time
+import jsonlines
+import parquet
 
 url = "https://www.cars.com/shopping/advanced-search/"
 headers = {
@@ -11,11 +13,10 @@ headers = {
 
 with open("data/all_categories_dict.json") as file:
     all_categories = json.load(file)
+count=0
 data = []
 for brand, category_href in all_categories.items():
-    print('начали ждать 5 секунд')
-    time.sleep(5)
-    print(f'Закончили ждать 5 секунд. Извлекаем брэнд {brand}')
+    time.sleep(2)
     req = requests.get(url = category_href, headers = headers)
     src = req.text
     soup = BeautifulSoup(src, 'lxml')
@@ -23,9 +24,12 @@ for brand, category_href in all_categories.items():
     for model in soup.find('div', {'id': 'mobile-models-wrapper'}).find('div', {'class': 'child-group'}).find_all('label', {'class': 'sds-label'}):
         model.find('span', {'class': 'filter-count'}).decompose()
         models.append(model.text.strip())
-    print(f'сформировали список с моделью {brand}')
-    data.append({brand: models})
+    data.append({"brand":brand,"models":models})
+    print(f'{len(all_categories) - count}/{len(all_categories)}.{brand}({len(models)})шт.')
+    count+=1
+    print(f'"brand:"{brand}","model":"{models}"')
 
-print(f'записываем в файл. Hello, World')
-with open("data/models.json", "w") as file:
-    json.dump(data, file, indent=4, ensure_ascii=False)
+print(f'Записываем данные в файл.')
+with jsonlines.open('data/all_brands_models_dict.jsonl', mode='w') as writer:
+    for obj in data:
+        writer.write(obj)
